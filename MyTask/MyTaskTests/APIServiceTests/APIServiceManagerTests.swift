@@ -23,14 +23,12 @@ final class APIServiceManagerTests: XCTestCase {
         sut = nil
     }
 
-    func testUrlSession(){
+    func testUrlSession() {
         XCTAssertNotNil(sut.urlSession)
     }
     
-    func testAPIInvocation_success(){
-        let exp = expectation(
-            description: "Mock API Service"
-        )
+    func testAPIInvocation_success() {
+        let exp = expectation(description: "Mock API Service")
         let reqModel = APIMockSuccessRequest(requestId: "1234")
         sut.fetchData(requestModel: reqModel, expectingType: APIMockResponse.self) { result in
             switch result {
@@ -43,10 +41,8 @@ final class APIServiceManagerTests: XCTestCase {
         wait(for: [exp], timeout: maxTimeInterval)
     }
     
-    func testAPIInvocation_failure(){
-        let exp = expectation(
-            description: "Mock API Service"
-        )
+    func testAPIInvocation_failure() {
+        let exp = expectation(description: "Mock API Service")
         let reqModel = APIMockFailureRequest(requestId: "12345")
         sut.fetchData(requestModel: reqModel, expectingType: APIMockResponse.self) { result in
             switch result {

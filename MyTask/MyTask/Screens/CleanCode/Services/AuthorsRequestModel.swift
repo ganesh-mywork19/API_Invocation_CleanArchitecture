@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct AuthorsRequestModel: APIRequestProtocol{
+struct AuthorsRequestModel: APIRequestProtocol {
     
     var requestId: String
     init() {
         requestId = UUID().uuidString.lowercased()
     }
-    var httpMethod: HttpMethod{
+    var httpMethod: HttpMethod {
         return .GET
     }
-    var endpoint: ServiceEndpoint{
+    var endpoint: ServiceEndpoint {
         return .authorsList
     }
     

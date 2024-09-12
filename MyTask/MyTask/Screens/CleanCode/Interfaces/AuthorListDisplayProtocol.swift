@@ -11,7 +11,7 @@ import Foundation
 protocol ScreenDisplayProtocol: AnyObject {
     func showLoader()
     func hideLoader()
-    func showMessage(_ text:String) //
+    func showMessage(_ text:String)
     func showInfo(_ text:String?)
     func showError(_ text:String)
 }

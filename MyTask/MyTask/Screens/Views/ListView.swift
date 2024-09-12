@@ -22,19 +22,19 @@ class ListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func createViews(){
+    private func createViews() {
         createTableView()
         //create more views
     }
     
-    func update(viewModel: ListViewViewModel){
+    func update(viewModel: ListViewViewModel) {
         self.viewModel = viewModel
         DispatchQueue.main.async {
             self._tableView?.reloadData()
         }
     }
     
-    private func createTableView(){
+    private func createTableView() {
         _tableView?.removeFromSuperview()
         _tableView = UITableView()
         _tableView.translatesAutoresizingMaskIntoConstraints = false

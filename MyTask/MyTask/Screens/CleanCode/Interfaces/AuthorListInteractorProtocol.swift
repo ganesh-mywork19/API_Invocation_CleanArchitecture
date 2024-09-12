@@ -8,11 +8,10 @@
 import Foundation
 
 protocol AuthorListInteractorProtocol {
-    
-    var inputModel: AuthorListInputModelProtocol?{get}
-    var dbWorker: AuthorListDBWorkerProtocol?{get}
-    var serviceWorker:AuthorListServiceWorkerProtocol? {get}
-    var presenter:AuthorListPresenterProtocol? {get}
+    var inputModel: AuthorListInputModelProtocol? { get }
+    var dbWorker: AuthorListDBWorkerProtocol? { get }
+    var serviceWorker:AuthorListServiceWorkerProtocol? { get }
+    var presenter:AuthorListPresenterProtocol? { get }
     
     @discardableResult func setDBWorker(dbWorker: AuthorListDBWorkerProtocol) -> Self
     @discardableResult func setPresenter(presenter: AuthorListPresenterProtocol) -> Self

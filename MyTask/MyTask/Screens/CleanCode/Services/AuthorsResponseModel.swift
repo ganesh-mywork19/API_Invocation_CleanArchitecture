@@ -9,7 +9,6 @@ import Foundation
 
 struct AuthorsResponseModel: Codable {
     let entries: [Entries]
-    
     struct Entries: Codable {
         let name: String
         let url: String

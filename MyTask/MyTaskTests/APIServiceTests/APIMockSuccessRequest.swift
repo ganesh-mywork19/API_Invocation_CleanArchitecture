@@ -11,10 +11,10 @@ import Foundation
 struct APIMockSuccessRequest: APIRequestProtocol {
     
     var requestId: String
-    var endpoint: ServiceEndpoint{
+    var endpoint: ServiceEndpoint {
         return .test
     }
-    var httpMethod: HttpMethod{
+    var httpMethod: HttpMethod {
         return .GET
     }
 }

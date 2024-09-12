@@ -18,42 +18,37 @@ enum ServiceEndpoint: String {
 }
 
 protocol APIRequestProtocol {
-    var requestId: String {get} //will be used to track the request and response from server (if your server is capable)
-    var httpMethod: HttpMethod {get}
-    var endpoint: ServiceEndpoint {get}
-    var apiURL:URL?{get} //final server URL
-    var baseUrlString:String{get}
-    var timeoutInterval:TimeInterval {get}
-    
-    var additionalHeaderFields:[String: String]? {get}
-    var body:Data?{get}
+    var requestId: String { get } //will be used to track the request and response from server (if your server is capable)
+    var httpMethod: HttpMethod { get }
+    var endpoint: ServiceEndpoint { get }
+    var apiURL: URL? { get } //final server URL
+    var baseUrlString: String { get }
+    var timeoutInterval: TimeInterval { get }
+    var additionalHeaderFields: [String: String]? { get }
+    var body: Data? { get }
 }
 
 extension APIRequestProtocol {
-    
-    var httpMethod: HttpMethod{
-        return .POST //Default
+    var httpMethod: HttpMethod {
+        return .POST //Setting the default value
     }
-    var apiURL:URL?{
+    var apiURL: URL? {
         let baseUrl = baseUrlString + endpoint.rawValue
         guard let url = URL(string: baseUrl) else {
             return nil
         }
         return url
     }
-    var baseUrlString: String{
+    var baseUrlString: String {
         return "http://openlibrary.org"
     }
-    
-    var timeoutInterval:TimeInterval {
-        return 30 //Default
+    var timeoutInterval: TimeInterval {
+        return 30 //Setting the default value
     }
-    
-    var body:Data?{
+    var body: Data? {
         return nil
     }
-    
-    var additionalHeaderFields:[String: String]?{
+    var additionalHeaderFields: [String: String]? {
         return nil
     }
 }

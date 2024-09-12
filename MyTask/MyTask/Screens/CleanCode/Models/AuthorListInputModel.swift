@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct AuthorListInputModel : AuthorListInputModelProtocol{
+struct AuthorListInputModel: AuthorListInputModelProtocol {
     
-    init(){
+    init() {
     }
 }

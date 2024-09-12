@@ -8,5 +8,5 @@
 import Foundation
 
 protocol AuthorListDBWorkerProtocol {
-    var inputModel: AuthorListInputModelProtocol?{get}
+    var inputModel: AuthorListInputModelProtocol? { get }
 }

@@ -13,16 +13,16 @@ enum NetworkStatus {
    case disconnected
 }
 
-class NetworkMonitor {
+final class NetworkMonitor {
     static let shared = NetworkMonitor()
     private var networkMonitor: NWPathMonitor!
-    var status:NetworkStatus = .disconnected
+    var status: NetworkStatus = .disconnected
     
-    private init(){
+    private init() {
         start()
     }
     
-    private func start(){
+    private func start() {
         networkMonitor = NWPathMonitor()
         networkMonitor.start(queue: DispatchQueue(label: "NetworkConnectivityMonitor"))
         networkMonitor.pathUpdateHandler = {[weak self] path in

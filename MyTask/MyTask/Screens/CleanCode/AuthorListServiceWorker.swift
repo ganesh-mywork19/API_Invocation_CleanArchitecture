@@ -11,7 +11,6 @@ import Foundation
 final class AuthorListServiceWorker: AuthorListServiceWorkerProtocol{
     
     private(set) var serviceManager: APIServiceManagerProtocol?
-
     required init(serviceManager: APIServiceManagerProtocol) {
         self.serviceManager = serviceManager
     }
@@ -19,7 +18,7 @@ final class AuthorListServiceWorker: AuthorListServiceWorkerProtocol{
     func fetchAuthors(requestModel: APIRequestProtocol,
                       completetion: @escaping (Result<AuthorsResponseModel, APIServiceError>) -> Void) {
         serviceManager?.fetchData(requestModel: requestModel,
-                                 expectingType: AuthorsResponseModel.self) {result in
+                                  expectingType: AuthorsResponseModel.self) { result in
             DispatchQueue.main.async {
                 completetion(result)
             }

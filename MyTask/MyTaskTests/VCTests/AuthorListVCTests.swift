@@ -8,9 +8,9 @@
 import XCTest
 @testable import MyTask
 
-final class AuthorListMockServiceWorker: AuthorListServiceWorkerProtocol{
+final class AuthorListMockServiceWorker: AuthorListServiceWorkerProtocol {
     private(set) var serviceManager: APIServiceManagerProtocol?
-    init(serviceManager: APIServiceManagerProtocol){
+    init(serviceManager: APIServiceManagerProtocol) {
         self.serviceManager = serviceManager
     }
     func fetchAuthors(requestModel: APIRequestProtocol,
@@ -44,7 +44,7 @@ final class AuthorListMockServiceWorker: AuthorListServiceWorkerProtocol{
     }
 }
 
-final class AuthorListMockInteractor : AuthorListInteractorProtocol{
+final class AuthorListMockInteractor: AuthorListInteractorProtocol {
     var inputModel: AuthorListInputModelProtocol?
     var dbWorker: AuthorListDBWorkerProtocol?
     var serviceWorker: AuthorListServiceWorkerProtocol?
@@ -65,7 +65,7 @@ final class AuthorListMockInteractor : AuthorListInteractorProtocol{
         return self
     }
     
-    func fetchAuthors(completion: (() -> Void)?){
+    func fetchAuthors(completion: (() -> Void)?) {
         completion?()
     }
 }
@@ -137,7 +137,7 @@ final class AuthorListVCTests: XCTestCase {
         XCTAssertNotNil(sut.router)
     }
 
-    func testAutherListAPIInvocation(){
+    func testAutherListAPIInvocation() {
         let serviceWorker = sut.interactor?.serviceWorker
         let requestModel = AuthorsRequestModel()
         let exp = expectation(description: "Mock Service")

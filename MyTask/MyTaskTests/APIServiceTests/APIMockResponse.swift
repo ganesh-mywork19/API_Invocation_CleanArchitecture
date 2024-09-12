@@ -8,6 +8,6 @@
 import Foundation
 
 struct APIMockResponse: Codable {
-    let page: Int? //
+    let page: Int? //Just reading dummy value
 }
 

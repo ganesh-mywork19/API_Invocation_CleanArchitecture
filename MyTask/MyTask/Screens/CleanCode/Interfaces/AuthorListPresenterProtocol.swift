@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AuthorListPresenterProtocol: ScreenDisplayProtocol{
-    var viewController: AuthorListDisplayProtocol? {set get}
+    var viewController: AuthorListDisplayProtocol? { set get }
     init(viewController: AuthorListDisplayProtocol)
     func authorsResponse(model: AuthorsResponseModel)
 }

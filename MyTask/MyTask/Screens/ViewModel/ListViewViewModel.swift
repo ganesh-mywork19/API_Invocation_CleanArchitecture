@@ -12,10 +12,10 @@ struct ListViewViewModel {
     var count: Int {
         return authors?.count ?? 0
     }
-    mutating func update(authors: [AuthorModel]){
+    mutating func update(authors: [AuthorModel]) {
         self.authors = authors
     }
-    func model(at index: Int) -> AuthorModel?{
+    func model(at index: Int) -> AuthorModel? {
         guard let model = authors[safe: index] else{
             return nil
         }

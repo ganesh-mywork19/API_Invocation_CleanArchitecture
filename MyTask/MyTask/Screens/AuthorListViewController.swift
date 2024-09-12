@@ -25,15 +25,15 @@ import UIKit
 //        fatalError("init(coder:) has not been implemented")
 //    }
 //    
-//    func update(title: String){
+//    func update(title: String) {
 //        titleLabel?.text = title
 //    }
 //    
-//    private func createViews(){
+//    private func createViews() {
 //        createTitleLabel()
 //    }
 //    
-//    private func createTitleLabel(){
+//    private func createTitleLabel() {
 //        titleLabel?.removeFromSuperview()
 //        titleLabel = UILabel()
 //        titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -68,20 +68,20 @@ final class AuthorListViewController: UIViewController {
         super.init(coder: aDecoder)
     }
 
-    func setInteractor(_ interactor: AuthorListInteractorProtocol) -> Self{
+    func setInteractor(_ interactor: AuthorListInteractorProtocol) -> Self {
         self.interactor = interactor
         return self
     }
-    func setRouter(_ router: AuthorListRouterProtocol) -> Self{
+    func setRouter(_ router: AuthorListRouterProtocol) -> Self {
         self.router = router
         return self
     }
 
-    private func createViews(){
+    private func createViews() {
         createListView()
         createLoaderView()
     }
-    private func createListView(){
+    private func createListView() {
         listView?.removeFromSuperview()
         listView = ListView(viewModel: viewModel)
         listView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +94,7 @@ final class AuthorListViewController: UIViewController {
         ])
     }
     
-    private func createLoaderView(){
+    private func createLoaderView() {
         loaderView?.removeFromSuperview()
         loaderView = LoaderView()
         loaderView.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +111,7 @@ final class AuthorListViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
         createViews()
-        interactor?.fetchAuthors{}
+        interactor?.fetchAuthors {}
     }
 }
 

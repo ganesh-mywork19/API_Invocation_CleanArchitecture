@@ -8,9 +8,8 @@
 import Foundation
 
 protocol APIServiceManagerProtocol {
-    
-    var urlSession: URLSession?{get}
+    var urlSession: URLSession? { get }
     func fetchData<T: Codable>(requestModel: APIRequestProtocol,
-                                      expectingType: T.Type,
-                                      completetion: @escaping (Result<T, APIServiceError>) -> Void)
+                               expectingType: T.Type,
+                               completetion: @escaping (Result<T, APIServiceError>) -> Void)
 }

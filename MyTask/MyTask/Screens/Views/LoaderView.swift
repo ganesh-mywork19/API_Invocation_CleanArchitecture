@@ -11,7 +11,7 @@ import UIKit
 final class LoaderView: UIView {
     
     private var loader: UIActivityIndicatorView!
-    init(){
+    init() {
         super.init(frame: CGRect.zero)
         createViews()
     }
@@ -19,7 +19,7 @@ final class LoaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func createViews(){
+    private func createViews() {
         loader?.removeFromSuperview()
         loader = UIActivityIndicatorView(style: .medium)
         loader.translatesAutoresizingMaskIntoConstraints = false
@@ -27,12 +27,12 @@ final class LoaderView: UIView {
         loader.startAnimating()
     }
     
-    func showLoader(){
+    func showLoader() {
         DispatchQueue.main.async {
             self.loader?.alpha = 1
         }
     }
-    func hideLoader(){
+    func hideLoader() {
         DispatchQueue.main.async {
             self.loader?.alpha = 0
         }

@@ -11,10 +11,10 @@ import Foundation
 struct APIMockFailureRequest: APIRequestProtocol {
     
     var requestId: String
-    var endpoint: ServiceEndpoint{
+    var endpoint: ServiceEndpoint {
         return .none
     }
-    var apiURL: URL?{
+    var apiURL: URL? {
         return URL(string: "https://www.apple.com") //use any dummy API
     }
 }

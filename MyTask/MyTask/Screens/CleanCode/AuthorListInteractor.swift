@@ -7,15 +7,15 @@
 
 import Foundation
 
-final class AuthorListInteractor : AuthorListInteractorProtocol{
+final class AuthorListInteractor: AuthorListInteractorProtocol {
     
-    var inputModel: AuthorListInputModelProtocol?{
+    var inputModel: AuthorListInputModelProtocol? {
         return dbWorker?.inputModel
     }
     private(set) var dbWorker: AuthorListDBWorkerProtocol?
     private(set) var serviceWorker: AuthorListServiceWorkerProtocol?
     private(set) var presenter: AuthorListPresenterProtocol?
-
+    
     @discardableResult func setDBWorker(dbWorker: AuthorListDBWorkerProtocol) -> Self {
         self.dbWorker = dbWorker
         return self
@@ -36,17 +36,17 @@ final class AuthorListInteractor : AuthorListInteractorProtocol{
             assertionFailure("Unable to prepare AuthorsRequestModel")
             return
         }
-//        Task{
-//             do{
-//                 let result = try await serviceWorker!.fetchAuthors(requestModel: request)
-//             }catch{
-//                  print(error)
-//             }
-//        }
+        //        Task{
+        //             do{
+        //                 let result = try await serviceWorker!.fetchAuthors(requestModel: request)
+        //             }catch{
+        //                  print(error)
+        //             }
+        //        }
         self.presenter?.showLoader()
         serviceWorker?.fetchAuthors(requestModel: request) {[weak self] result in
-            self?.presenter?.hideLoader()
             guard let self else { return }
+            self.presenter?.hideLoader()
             switch result {
             case .success(let model):
                 DispatchQueue.main.async {
@@ -59,7 +59,6 @@ final class AuthorListInteractor : AuthorListInteractorProtocol{
                     DispatchQueue.main.async {
                         self.presenter?.showInfo(msg)
                     }
-                
                 case .Error(let err):
                     DispatchQueue.main.async {
                         self.presenter?.showError(err.localizedDescription)
@@ -78,7 +77,7 @@ final class AuthorListInteractor : AuthorListInteractorProtocol{
 extension AuthorListInteractor {
     var authorsRequestModel: APIRequestProtocol? {
         let model = AuthorsRequestModel()
-        //add if anythings needs to be added here
+        //add if anythings needs to be filled up here
         return model
     }
 }

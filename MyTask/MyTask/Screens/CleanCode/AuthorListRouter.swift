@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class AuthorListRouter : AuthorListRouterProtocol{
+final class AuthorListRouter: AuthorListRouterProtocol {
     
     weak var viewController: UIViewController? = nil
     required init(viewController: UIViewController) {

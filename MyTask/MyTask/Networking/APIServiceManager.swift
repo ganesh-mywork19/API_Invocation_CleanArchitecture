@@ -24,13 +24,12 @@ final class APIServiceManager: APIServiceManagerProtocol {
     func fetchData<T: Codable>(requestModel: APIRequestProtocol,
                                expectingType: T.Type,
                                completetion: @escaping (Result<T, APIServiceError>) -> Void) {
-        guard let request = prepare(requestModel: requestModel) else{
+        guard let request = prepare(requestModel: requestModel) else {
             DispatchQueue.main.async {
                 completetion(.failure(.ErrorMessage("You passed Invalid Url")))
             }
             return
         }
-        
         //check for internet status and proceed
         if NetworkMonitor.shared.status == .disconnected {
             DispatchQueue.main.async {
@@ -38,7 +37,6 @@ final class APIServiceManager: APIServiceManagerProtocol {
             }
             return
         }
-        
         urlSession?.dataTask(with: request) { data, response, error in
             if let error = error {
                 DispatchQueue.main.async {

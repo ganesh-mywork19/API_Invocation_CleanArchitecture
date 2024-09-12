@@ -31,7 +31,7 @@ final class AuthorListPresenter: AuthorListPresenterProtocol {
     }
     
     //manipulate the data/response according to your need
-    func authorsResponse(model: AuthorsResponseModel){
+    func authorsResponse(model: AuthorsResponseModel) {
         var authors = [AuthorModel]()
         model.entries.forEach { author in
             authors.append(AuthorModel(name: author.name,

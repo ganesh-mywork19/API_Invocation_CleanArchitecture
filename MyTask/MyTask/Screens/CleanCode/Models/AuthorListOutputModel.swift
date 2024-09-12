@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct AuthorListOutputModel : AuthorListOutputModelProtocol{
+struct AuthorListOutputModel: AuthorListOutputModelProtocol {
     
 }
