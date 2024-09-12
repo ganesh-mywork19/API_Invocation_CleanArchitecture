@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F217F6C2C92F04B00BCC853 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F217F6B2C92F04B00BCC853 /* HeaderView.swift */; };
 		C64E79332C871D6700FC8BF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64E79322C871D6700FC8BF3 /* AppDelegate.swift */; };
 		C64E79352C871D6700FC8BF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64E79342C871D6700FC8BF3 /* SceneDelegate.swift */; };
 		C64E793A2C871D6700FC8BF3 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C64E79392C871D6700FC8BF3 /* Base */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F217F6B2C92F04B00BCC853 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C64E792F2C871D6700FC8BF3 /* MyTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C64E79322C871D6700FC8BF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C64E79342C871D6700FC8BF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				C64E797F2C87B91A00FC8BF3 /* ListView.swift */,
 				C64E79A92C8882AF00FC8BF3 /* LoaderView.swift */,
+				1F217F6B2C92F04B00BCC853 /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				C64E79352C871D6700FC8BF3 /* SceneDelegate.swift in Sources */,
 				C64E79782C87619600FC8BF3 /* AuthorListRouter.swift in Sources */,
 				C64E79762C87619600FC8BF3 /* AuthorListDBWorker.swift in Sources */,
+				1F217F6C2C92F04B00BCC853 /* HeaderView.swift in Sources */,
 				C64E796A2C87610500FC8BF3 /* AuthorListInteractorProtocol.swift in Sources */,
 				C64E796F2C87615A00FC8BF3 /* AuthorListInputModel.swift in Sources */,
 				C64E794A2C871EE100FC8BF3 /* AuthorsResponseModel.swift in Sources */,

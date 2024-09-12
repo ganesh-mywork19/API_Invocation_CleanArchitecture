@@ -25,20 +25,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func prepareHomeScreen() -> UIViewController {
         let inputModel = AuthorListInputModel() //prepare anything that needs to be filled
-        let vc = AuthorListViewController(with: ListViewViewModel())
-        let presenter = AuthorListPresenter(viewController: vc)
+        let viewController = AuthorListViewController(with: ListViewViewModel())
+        let presenter = AuthorListPresenter(viewController: viewController)
         let serviceWorker = AuthorListServiceWorker(serviceManager: APIServiceManager())
         let dbWorker = AuthorListDBWorker(model: inputModel)
-        let router = AuthorListRouter(viewController: vc)
+        let router = AuthorListRouter(viewController: viewController)
 
         let interactor = AuthorListInteractor()
             .setPresenter(presenter: presenter)
             .setServiceWorker(serviceWorker: serviceWorker)
             .setDBWorker(dbWorker: dbWorker)
         
-        _ = vc.setInteractor(interactor)
+        _ = viewController.setInteractor(interactor)
             .setRouter(router)
-        return vc
+        
+        let navVC = UINavigationController(rootViewController: viewController)
+        return navVC
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

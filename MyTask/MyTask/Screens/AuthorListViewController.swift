@@ -8,45 +8,6 @@
 import Foundation
 import UIKit
 
-//class HeaderView: UIStackView {
-//    
-//    private var titleLabel: UILabel!
-//
-//    deinit {
-//        print("deinit called >>>> SCChatContactCustomView")
-//    }
-//
-//    init() {
-//        super.init(frame: .zero)
-//        createViews()
-//    }
-//    
-//    required init(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    func update(title: String) {
-//        titleLabel?.text = title
-//    }
-//    
-//    private func createViews() {
-//        createTitleLabel()
-//    }
-//    
-//    private func createTitleLabel() {
-//        titleLabel?.removeFromSuperview()
-//        titleLabel = UILabel()
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//        titleLabel.textColor = .white
-//        titleLabel.textAlignment = .center
-//        addArrangedSubview(titleLabel)
-//        NSLayoutConstraint.activate([
-//            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//        ])
-//    }
-//}
-
 final class AuthorListViewController: UIViewController {
     
     private(set) var interactor: AuthorListInteractorProtocol?
@@ -81,13 +42,14 @@ final class AuthorListViewController: UIViewController {
         createListView()
         createLoaderView()
     }
+    
     private func createListView() {
         listView?.removeFromSuperview()
         listView = ListView(viewModel: viewModel)
         listView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(listView)
         NSLayoutConstraint.activate([
-            listView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            listView.topAnchor.constraint(equalTo: view.topAnchor),
             listView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             listView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             listView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -109,7 +71,10 @@ final class AuthorListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
+        navigationController?.defaultNavigationBar()
+        navigationItem.title = "Authors List"
+
         createViews()
         interactor?.fetchAuthors {}
     }
