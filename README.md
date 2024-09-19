@@ -1,4 +1,4 @@
-# ganesh_lyd_task
+# General API Call Using Clean Architecture
 A new simple iOS application where it invokes a simple API using the Clean Architecture. 
 
 A Screenshot from iPhone15 Pro with iOS 17.5 Simulator:
