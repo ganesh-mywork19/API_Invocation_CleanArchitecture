@@ -11,4 +11,4 @@ A Screenshot from iPhone11 with iOS 17.5 Simulator:
 
 
 About Clean Architecture:
-  Clean Architecture is an Architecture to follow the SOLID prociples inorder to keep the app well organised, testable and easy to maintain as well. It has advantages like 1) Hard to make mistakes 2) Business logic is encapsulated 3) Highly scalable 4) Easy to use and maintain and more.
+  Clean Architecture is an Architecture which follows the S.O.L.I.D prociples inorder to keep the app well organised, testable and easy to maintain as well. It has advantages like 1) Hard to make mistakes 2) Business logic is encapsulated 3) Highly scalable 4) Easy to use and maintain.
