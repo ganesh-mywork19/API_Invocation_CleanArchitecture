@@ -31,41 +31,22 @@ final class AuthorListInteractor: AuthorListInteractorProtocol {
         return self
     }
     
-    func fetchAuthors(completion: (() -> Void)?) {
+    func fetchAuthors() {
         guard let request = authorsRequestModel else{
             assertionFailure("Unable to prepare AuthorsRequestModel")
             return
         }
-        //        Task{
-        //             do{
-        //                 let result = try await serviceWorker!.fetchAuthors(requestModel: request)
-        //             }catch{
-        //                  print(error)
-        //             }
-        //        }
         self.presenter?.showLoader()
-        serviceWorker?.fetchAuthors(requestModel: request) {[weak self] result in
-            guard let self else { return }
-            self.presenter?.hideLoader()
-            switch result {
-            case .success(let model):
-                DispatchQueue.main.async {
-                    self.presenter?.authorsResponse(model: model)
-                }
-            case .failure(let error):
+        Task { @MainActor in
+            do{
+                let resModel = try await serviceWorker!.fetchAuthors(requestModel: request)
+                self.presenter?.authorsResponse(model: resModel)
+                self.presenter?.hideLoader()
+            }catch{
+                self.presenter?.hideLoader()
                 print(error)
-                switch error {
-                case .ErrorMessage(let msg):
-                    DispatchQueue.main.async {
-                        self.presenter?.showInfo(msg)
-                    }
-                case .Error(let err):
-                    DispatchQueue.main.async {
-                        self.presenter?.showError(err.localizedDescription)
-                    }
-                }
+                self.presenter?.showError(error.localizedDescription)
             }
-            completion?()
         }
     }
     

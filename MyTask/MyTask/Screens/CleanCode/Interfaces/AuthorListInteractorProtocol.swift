@@ -17,5 +17,5 @@ protocol AuthorListInteractorProtocol {
     @discardableResult func setPresenter(presenter: AuthorListPresenterProtocol) -> Self
     @discardableResult func setServiceWorker(serviceWorker: AuthorListServiceWorkerProtocol) -> Self
     
-    func fetchAuthors(completion: (() -> Void)?)
+    func fetchAuthors()
 }

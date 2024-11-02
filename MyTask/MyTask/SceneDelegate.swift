@@ -25,12 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func prepareHomeScreen() -> UIViewController {
         let inputModel = AuthorListInputModel() //prepare anything that needs to be filled
-        let viewController = AuthorListViewController(with: ListViewViewModel())
+        let viewController = AuthorListViewController()
         let presenter = AuthorListPresenter(viewController: viewController)
         let serviceWorker = AuthorListServiceWorker(serviceManager: APIServiceManager())
         let dbWorker = AuthorListDBWorker(model: inputModel)
         let router = AuthorListRouter(viewController: viewController)
-
         let interactor = AuthorListInteractor()
             .setPresenter(presenter: presenter)
             .setServiceWorker(serviceWorker: serviceWorker)

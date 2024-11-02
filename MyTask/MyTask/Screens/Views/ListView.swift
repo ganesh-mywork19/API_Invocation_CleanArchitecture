@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-class ListView: UIView {
+final class ListView: UIView {
     
-    fileprivate var viewModel: ListViewViewModel!
-    fileprivate var _tableView: UITableView!
+    private var viewModel: ListViewViewModel!
+    private var _tableView: UITableView!
     static var cellIdentifier = "CellIdentifier"
-    init(viewModel: ListViewViewModel){
+    init(viewModel: ListViewViewModel) {
         super.init(frame: CGRect.zero)
         self.viewModel = viewModel
         createViews()

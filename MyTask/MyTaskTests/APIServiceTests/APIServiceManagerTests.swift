@@ -10,7 +10,7 @@ import XCTest
 
 final class APIServiceManagerTests: XCTestCase {
 
-    private let maxTimeInterval: TimeInterval = 10 //it depends on the env
+    private let maxTimeInterval: TimeInterval = 5 //it depends on the env
     private var sut: APIServiceManagerProtocol!
     
     override func setUpWithError() throws {
@@ -30,12 +30,12 @@ final class APIServiceManagerTests: XCTestCase {
     func testAPIInvocation_success() {
         let exp = expectation(description: "Mock API Service")
         let reqModel = APIMockSuccessRequest(requestId: "1234")
-        sut.fetchData(requestModel: reqModel, expectingType: APIMockResponse.self) { result in
-            switch result {
-            case .success(let model):
+        Task {
+            do {
+                let _ = try await sut.fetchData(requestModel: reqModel, expectingType: APIMockResponse.self)
                 exp.fulfill()
-            case .failure(let err):
-                print(err)
+            }catch {
+                print(error)
             }
         }
         wait(for: [exp], timeout: maxTimeInterval)
@@ -44,11 +44,11 @@ final class APIServiceManagerTests: XCTestCase {
     func testAPIInvocation_failure() {
         let exp = expectation(description: "Mock API Service")
         let reqModel = APIMockFailureRequest(requestId: "12345")
-        sut.fetchData(requestModel: reqModel, expectingType: APIMockResponse.self) { result in
-            switch result {
-            case .success(let model):
-                print(model)
-            case .failure(_ ):
+        Task {
+            do {
+                let _ = try await sut.fetchData(requestModel: reqModel, expectingType: APIMockResponse.self)
+            }catch {
+                print(error)
                 exp.fulfill()
             }
         }

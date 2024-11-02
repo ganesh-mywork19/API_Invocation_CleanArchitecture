@@ -8,19 +8,17 @@
 import Foundation
 
 struct ListViewViewModel {
-    private var authors: [AuthorModel]!
+    private var authors: [AuthorModel]? = nil
+    init(authors: [AuthorModel]? = nil) {
+        self.authors = authors
+    }
     var count: Int {
         return authors?.count ?? 0
     }
-    mutating func update(authors: [AuthorModel]) {
-        self.authors = authors
-    }
     func model(at index: Int) -> AuthorModel? {
-        guard let model = authors[safe: index] else{
+        guard let model = authors?[safe: index] else{
             return nil
         }
         return model
     }
-    
-    //Write listView related logic if you have
 }

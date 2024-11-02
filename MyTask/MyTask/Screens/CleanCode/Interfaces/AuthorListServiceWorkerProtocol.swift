@@ -11,6 +11,5 @@ import Foundation
 protocol AuthorListServiceWorkerProtocol {
     var serviceManager: APIServiceManagerProtocol? { get }
     init(serviceManager: APIServiceManagerProtocol)
-    func fetchAuthors(requestModel: APIRequestProtocol,
-                      completetion: @escaping (Result<AuthorsResponseModel, APIServiceError>) -> Void)
+    func fetchAuthors(requestModel: APIRequestProtocol) async throws -> AuthorsResponseModel
 }

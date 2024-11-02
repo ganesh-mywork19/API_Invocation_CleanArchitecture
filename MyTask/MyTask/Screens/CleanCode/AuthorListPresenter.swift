@@ -26,9 +26,6 @@ final class AuthorListPresenter: AuthorListPresenterProtocol {
     func showError(_ text: String) {
         viewController?.showError(text)
     }
-    func showInfo(_ text: String?) {
-        viewController?.showInfo(text)
-    }
     
     //manipulate the data/response according to your need
     func authorsResponse(model: AuthorsResponseModel) {

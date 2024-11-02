@@ -22,73 +22,26 @@ final class APIServiceManager: APIServiceManagerProtocol {
     
     //expectingType can be sometimes direct array too. So passing the required type from outside
     func fetchData<T: Codable>(requestModel: APIRequestProtocol,
-                               expectingType: T.Type,
-                               completetion: @escaping (Result<T, APIServiceError>) -> Void) {
+                               expectingType: T.Type) async throws -> T {
         guard let request = prepare(requestModel: requestModel) else {
-            DispatchQueue.main.async {
-                completetion(.failure(.ErrorMessage("You passed Invalid Url")))
-            }
-            return
+            throw APIServiceError.ErrorMessage("You passed Invalid Url")
         }
         //check for internet status and proceed
         if NetworkMonitor.shared.status == .disconnected {
-            DispatchQueue.main.async {
-                completetion(.failure(.ErrorMessage("No Internet connection")))
-            }
-            return
+            throw APIServiceError.ErrorMessage("No Internet connection")
         }
-        urlSession?.dataTask(with: request) { data, response, error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    completetion(.failure(.Error(error)))
-                }
-            }
-            guard let data = data, (response?.statusCode() == 200) else {
-                DispatchQueue.main.async {
-                    completetion(.failure(.ErrorMessage("No data received")))
-                }
-                return
-            }
-            do {
-                let result = try JSONDecoder().decode(expectingType, from: data)
-                print("result = \(result)")
-                DispatchQueue.main.async {
-                    completetion(.success(result))
-                }
-            }
-            catch {
-                DispatchQueue.main.async {
-                    completetion(.failure(.ErrorMessage(error.localizedDescription)))
-                }
-            }
-        }.resume()
+        let (data, response) = try await urlSession!.data(for: request)
+        guard (response.statusCode() == 200) else {
+            throw APIServiceError.ErrorMessage("No data received")
+        }
+        do {
+            let result = try JSONDecoder().decode(expectingType, from: data)
+            print("result = \(result)")
+            return result
+        }catch {
+            throw APIServiceError.Error(error)
+        }
     }
-    
-    //I want let you know that we can achive this using the async and await as well
-//    func fetchData<T: Codable>(requestModel: APIRequestProtocol,
-//                               expectingType: T.Type) async throws -> (Result<T, Error>) {
-//        
-//        guard let request = prepare(requestModel: requestModel) else{
-//            return .failure(ServiceAPIError.InvalidUrl)
-//        }
-//        
-//        //check for internet status and proceed
-//        if NetworkMonitor.shared.status == .disconnected {
-//            return .failure(ServiceAPIError.NoInternet)
-//        }
-//        let (data, response) = try await urlSession!.data(for: request)
-//        guard response.statusCode() == 200 else {
-//            return .failure(ServiceAPIError.InvalidData)
-//        }
-//        do {
-//            let result = try JSONDecoder().decode(expectingType, from: data)
-//            print("result = \(result)")
-//            return .success(result)
-//        }
-//        catch {
-//            return  .failure(error)
-//        }
-//    }
     
     private func prepare(requestModel: APIRequestProtocol) -> URLRequest? {
         guard let apiURL = requestModel.apiURL else {

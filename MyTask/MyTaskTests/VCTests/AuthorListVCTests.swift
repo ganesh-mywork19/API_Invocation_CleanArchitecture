@@ -13,15 +13,14 @@ final class AuthorListMockServiceWorker: AuthorListServiceWorkerProtocol {
     init(serviceManager: APIServiceManagerProtocol) {
         self.serviceManager = serviceManager
     }
-    func fetchAuthors(requestModel: APIRequestProtocol,
-                      completetion: @escaping (Result<AuthorsResponseModel, APIServiceError>) -> Void) {
+    func fetchAuthors(requestModel: APIRequestProtocol) async throws -> AuthorsResponseModel {
         do {
             let result = try JSONDecoder().decode(AuthorsResponseModel.self, from: mockData)
             print("result = \(result)")
-            completetion(.success(result))
+            return result
         }
         catch {
-            completetion(.failure(.Error(error)))
+            throw error
         }
     }
     
@@ -65,8 +64,7 @@ final class AuthorListMockInteractor: AuthorListInteractorProtocol {
         return self
     }
     
-    func fetchAuthors(completion: (() -> Void)?) {
-        completion?()
+    func fetchAuthors() {
     }
 }
 
@@ -111,11 +109,6 @@ final class AuthorListVCTests: XCTestCase {
         XCTAssertNotNil(interactor.dbWorker)
         XCTAssertNotNil(interactor.serviceWorker)
         XCTAssertNotNil(interactor.presenter)
-        let exp = expectation(description: "Mock Interactor")
-        sut.interactor?.fetchAuthors {
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
     }
     
     func testDBWorker() {
@@ -141,20 +134,19 @@ final class AuthorListVCTests: XCTestCase {
         let serviceWorker = sut.interactor?.serviceWorker
         let requestModel = AuthorsRequestModel()
         let exp = expectation(description: "Mock Service")
-        serviceWorker?.fetchAuthors(requestModel: requestModel, completetion: { result in
-            switch result {
-            case .success(let model):
-                XCTAssert(model.entries.count > 0)
-                
+        Task { @MainActor in
+            do{
+                let resModel = try await serviceWorker!.fetchAuthors(requestModel: requestModel)
+                XCTAssert(resModel.entries.count > 0)
                 //verify at least one record
-                XCTAssert(model.entries.first?.name == "user1")
-                XCTAssert(model.entries.first?.url == "url1")
-                XCTAssert(model.entries.first?.seedCount == 1)
+                XCTAssert(resModel.entries.first?.name == "user1")
+                XCTAssert(resModel.entries.first?.url == "url1")
+                XCTAssert(resModel.entries.first?.seedCount == 1)
                 exp.fulfill()
-            case .failure( _):
-                print()
+            }catch{
+                print(error)
             }
-        })
+        }
         wait(for: [exp], timeout: 5.0)
     }
 }

@@ -15,21 +15,17 @@ final class AuthorListServiceWorker: AuthorListServiceWorkerProtocol{
         self.serviceManager = serviceManager
     }
 
-    func fetchAuthors(requestModel: APIRequestProtocol,
-                      completetion: @escaping (Result<AuthorsResponseModel, APIServiceError>) -> Void) {
-        serviceManager?.fetchData(requestModel: requestModel,
-                                  expectingType: AuthorsResponseModel.self) { result in
-            DispatchQueue.main.async {
-                completetion(result)
-            }
+    func fetchAuthors(requestModel: APIRequestProtocol) async throws -> AuthorsResponseModel {
+        
+        do {
+            let responseModel = try await serviceManager!.fetchData(requestModel: requestModel,
+                                                          expectingType: AuthorsResponseModel.self)
+            return responseModel
+        }catch {
+            print(error)
+            throw error
         }
     }
-    
-//    func fetchAuthors(requestModel: APIRequestProtocol) async throws -> (Result<AuthorsResponseModel, Error>) {
-//        let result = try await serviceManager?.fetchData(requestModel: requestModel,
-//                                 expectingType: AuthorsResponseModel.self)
-//        return result
-//    }
     
     deinit {
         print("deinit called >>>> AuthorListServiceWorker")

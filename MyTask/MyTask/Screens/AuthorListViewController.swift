@@ -12,14 +12,8 @@ final class AuthorListViewController: UIViewController {
     
     private(set) var interactor: AuthorListInteractorProtocol?
     private(set) var router: AuthorListRouterProtocol?
-    private var viewModel: ListViewViewModel!
     private var loaderView: LoaderView!
     private var listView: ListView!
-
-    convenience init(with viewModel: ListViewViewModel){
-        self.init()
-        self.viewModel = viewModel
-    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -45,7 +39,7 @@ final class AuthorListViewController: UIViewController {
     
     private func createListView() {
         listView?.removeFromSuperview()
-        listView = ListView(viewModel: viewModel)
+        listView = ListView(viewModel: ListViewViewModel())
         listView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(listView)
         NSLayoutConstraint.activate([
@@ -76,7 +70,7 @@ final class AuthorListViewController: UIViewController {
         navigationItem.title = "Authors List"
 
         createViews()
-        interactor?.fetchAuthors {}
+        interactor?.fetchAuthors()
     }
 }
 
@@ -93,16 +87,11 @@ extension AuthorListViewController: AuthorListDisplayProtocol {
         //show any alert message
     }
     
-    func showInfo(_ text: String?) {
-        //show any info banner
-    }
-    
     func showError(_ text: String) {
         //show any error banner
     }
     
     func reloadView(with authors: [AuthorModel]) {
-        viewModel?.update(authors: authors)
-        listView?.update(viewModel: viewModel)
+        listView?.update(viewModel: ListViewViewModel(authors: authors))
     }
 }
